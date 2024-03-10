@@ -1,0 +1,25 @@
+﻿@page
+@model IList<SalonModel>
+
+@{
+    Layout = "_Layout";
+}
+<head>
+
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+
+</head>
+<body>
+    <div class="column-container">
+        @foreach (var item in ViewBag.SalonList)
+        {
+            <a href="@Url.Action("Privacy", "Home")" title="List View" class="links">
+
+                <div class="row-container">
+                    <div>@item.Name</div>
+                    <img class="img" src="~/Images/@item.ImagePath" alt="No Image" />
+                </div>
+            </a>
+        }
+    </div>
+</body>
