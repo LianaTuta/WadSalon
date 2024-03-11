@@ -1,0 +1,76 @@
+﻿@page
+@model IList<ServiceModel>
+@{
+    ViewBag.Title = "Serivces";
+    Layout = "_Layout";
+
+}
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }</style>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+
+</head>
+<div class="column-container">
+    <table class="table" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th style="width:150px">Services</th>
+                <th style="width:150px">Descrition</th>
+                <th style="width:150px">Appoinment Time</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ServiceModel service in ViewBag.Services)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Description</td>
+                    <td>
+                        @using (Html.BeginForm("Save", "Services", FormMethod.Post))
+                        {
+                            //this is for create form tag
+                            @Html.AntiForgeryToken()
+                            // this is for prevent CSRF attack
+                            @Html.ValidationSummary(true)
+                            @Html.EditorFor(service => service.FirstOrDefault().AppoinmentDate, new { htmlAttributes = new { @class = "datepicker"}} )
+                        }
+                    </td>
+                    <td>
+                        <div>
+                            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("Save", "Services",new {serviceModel=service})'" />
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changemonth: true,
+                changeyear: true
+            });
+            $(".datepicker").datepicker('setDate', new Date());
+        });
+    </script>
+}

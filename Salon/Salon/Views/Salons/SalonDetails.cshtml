@@ -17,8 +17,7 @@
         .row-container1 {
             display: flex;
             flex-direction: row;
-           
-            width : fit-content;
+            width: fit-content;
             padding: 10px 10px 10px 10px;
             gap: 100px;
             align-self: center;
@@ -28,7 +27,7 @@
         .row-container2 {
             display: flex;
             flex-direction: row;
-            padding: 10px 10px 10px 10px; 
+            padding: 10px 10px 10px 10px;
         }
 
     </style>
@@ -36,7 +35,7 @@
 
 </head>
 <body>
-      
+
     <div class="column-container1">
         <h1>@ViewBag.Salon.Name</h1>
         <div class="row-container1">
@@ -54,7 +53,13 @@
                 </div>
             </div>
             <img class="img-details" src="~/Images/@ViewBag.Salon.ImagePath" alt="No Image" />
-            
+
+        </div>
+
+
+        <div>
+            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("Services", "Services")'" />
         </div>
     </div>
+
 </body>
