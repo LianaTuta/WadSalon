@@ -14,7 +14,7 @@ namespace Salon.Controllers
         public IActionResult Login(UserLoginModel u)
         {
 
-            return RedirectToAction("Index", "Salons");
+            return RedirectToAction("Overview", "Salons");
 
 
             return View(u);

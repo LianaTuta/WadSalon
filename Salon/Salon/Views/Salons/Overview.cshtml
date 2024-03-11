@@ -13,9 +13,9 @@
     <div class="column-container">
         @foreach (var item in ViewBag.SalonList)
         {
-            <a href="@Url.Action("Privacy", "Home")" title="List View" class="links">
+            <a href="@Url.Action("SalonDetails", "Salons", new {salonId=item.Id})" title="List View" class="links">
 
-                <div class="row-container">
+                <div class="row-container border-color-list">
                     <div>@item.Name</div>
                     <img class="img" src="~/Images/@item.ImagePath" alt="No Image" />
                 </div>
