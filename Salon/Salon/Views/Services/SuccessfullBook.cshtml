@@ -1,0 +1,43 @@
+﻿@page
+@model ServiceModel
+@{
+    ViewBag.Title = "Serivces";
+    Layout = "_Layout";
+
+}
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }</style>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+
+</head>
+<div class="column-container">
+   <h1>You have booked an appoinment successfully!</h1>
+   <div>Details</div>
+
+</div>
+
+
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changemonth: true,
+                changeyear: true
+            });
+            $(".datepicker").datepicker('setDate', new Date());
+        });
+    </script>
+}

@@ -2,64 +2,51 @@
 @model UserLoginModel
 @{
     ViewBag.Title = "login";
-    // Layout = "_Layout";
+            // Layout = "_Layout";
 
 }
-<!DOCTYPE html>
-<html lang="en">
 <head>
-
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <style>
+        body {
+    background-image: url("Images/background.jpg");
+    min-height: 380px;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+    </style>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 
 </head>
-
 <body>
-    <div class="centerLogin">
-        <h2>Please Login</h2>
+    <div class="limiter">
+        <div class="container-login">
+            <div class="wrap-login">
+                <div class="login-form-title">Welcome</div>
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                    <div class="wrap-input">
+                        <div> @Html.TextBoxFor(a => a.Username,  new {placeholder = "Username",  @class="input-container" })</div>
+                    </div>
 
-        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-        {
-            //this is for create form tag
-            @Html.AntiForgeryToken()
-            // this is for prevent CSRF attack
-            @Html.ValidationSummary(true)
-            if (@ViewBag.Message != null)
-            {
+                    <div class="wrap-input">
+                        @Html.TextBoxFor(a => a.Password,  new {placeholder = "Password",  @class="input-container" })
+                    </div>
+                    <div>
+                        <div class="container-login-form-btn">
+                            <div class="wrap-login-form-btn">
+                                <div class="login-form-bgbtn"></div>
+                                <button class="login-form-btn">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                <div style="border:1px solid red">
-                    @ViewBag.Message
-                </div>
-            }
-
-            <div class="table-responsive align-content-center">
-                <table class="center">
-                    <tr>
-                        <td>@Html.LabelFor(a => a.Username)</td>
-                        <td>@Html.TextBoxFor(a => a.Username)</td>
-                        <td>@Html.ValidationMessageFor(a => a.Username)</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            @Html.LabelFor(a => a.Password)
-                        </td>
-                        <td>
-                            @Html.PasswordFor(a => a.Password)
-                        </td>
-                        <td>
-                            @Html.ValidationMessageFor(a => a.Password)
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <input type="submit" value="Login" />
-                        </td>
-                        <td></td>
-                    </tr>
-                </table>
+                }
             </div>
-
-        }
+        </div>
     </div>
 </body>
-</html>
