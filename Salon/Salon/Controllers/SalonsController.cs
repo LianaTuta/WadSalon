@@ -19,7 +19,7 @@ namespace Salon.Controllers
             {
                 Id = 2,
                 Name = "Salon2",
-                ImagePath = "salon2.jpg"
+                ImagePath = "salon1.jpg"
             };
             var sal3 = new SalonModel()
             {
@@ -53,7 +53,7 @@ namespace Salon.Controllers
             {
                 Id = 2,
                 Name = "Salon2",
-                ImagePath = "salon2.jpg",
+                ImagePath = "salon1.jpg",
                 Description = "descriere 2 salon",
                 Address = "Address 2 salon"
             };
