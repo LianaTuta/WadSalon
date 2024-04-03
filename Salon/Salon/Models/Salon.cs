@@ -1,6 +1,6 @@
 ﻿namespace Salon.Models
 {
-    public class SalonModel
+    public class Salon
     {
         public int Id { get; set; }
         public string Name { get; set; }

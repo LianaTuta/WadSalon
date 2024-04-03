@@ -10,8 +10,12 @@ namespace Salon.DAL
         {
 
         }
-        public DbSet<SalonModel> Salons { get; set; }
-        public DbSet<ProductModel> Products { get; set; }
+        public DbSet<Models.Salon> Salon { get; set; }
+        public DbSet<SalonService> Service{ get; set; }
+        public DbSet<Appoinment> Appoinment { get; set; }
+        public DbSet<UserProfile> UserProfile { get; set; }
+        public DbSet<UserAddress> UserAddress { get; set; }
+        public DbSet<UserPassword> UserPassword { get; set; }
 
     }
 }

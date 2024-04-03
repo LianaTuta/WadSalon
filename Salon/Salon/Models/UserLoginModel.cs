@@ -5,7 +5,7 @@ namespace Salon.Models
     public class UserLoginModel
     {
         [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
-        public string Username
+        public string Email
         {
             get;
             set;

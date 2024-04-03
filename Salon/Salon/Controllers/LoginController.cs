@@ -1,23 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Salon.DAL;
 using Salon.Models;
 
 namespace Salon.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly SalonContext _context;
+        public LoginController(SalonContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(UserLoginModel u)
+        public async Task<IActionResult> LoginAsync(UserLoginModel userLogin)
         {
-
-            return RedirectToAction("Overview", "Salons");
-
-
-            return View(u);
+            var existingUserProfile = await _context.UserProfile
+            .FirstOrDefaultAsync(m => m.Email == userLogin.Email);
+            var correctPassword = await _context.UserPassword.FirstOrDefaultAsync(m => m.Password == userLogin.Password);
+            if (existingUserProfile != null  && correctPassword !=null)
+            {
+                return RedirectToAction("Overview", "Salons");
+            }
+            return  RedirectToAction("Login", "Login");
         }
        
     }

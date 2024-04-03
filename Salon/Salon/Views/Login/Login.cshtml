@@ -28,7 +28,7 @@
                 @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                 {
                     <div class="wrap-input">
-                        <div> @Html.TextBoxFor(a => a.Username,  new {placeholder = "Username",  @class="input-container" })</div>
+                        <div> @Html.TextBoxFor(a => a.Email,  new {placeholder = "Username",  @class="input-container" })</div>
                     </div>
 
                     <div class="wrap-input">
@@ -45,7 +45,9 @@
                     </div>
 
                 }
+                <div class="login-form-title"> @Html.ActionLink("Don't have an account?Create one", "CreateAccount", "UserProfile")</div>
             </div>
+            
         </div>
     </div>
 </body>
