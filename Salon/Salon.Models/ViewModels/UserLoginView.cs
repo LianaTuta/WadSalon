@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
-namespace Salon.Models
+namespace Salon.Model.ViewModels
 {
-    public class UserLoginModel
+    public class UserLoginView
     {
         [Required(ErrorMessage = "Please Provide Username", AllowEmptyStrings = false)]
         public string Email
@@ -11,7 +10,7 @@ namespace Salon.Models
             set;
         }
         [Required(ErrorMessage = "Please provide password", AllowEmptyStrings = false)]
-        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+        [DataType(DataType.Password)]
         public string Password
         {
             get;

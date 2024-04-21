@@ -1,6 +1,6 @@
-﻿namespace Salon.Models
+﻿namespace Salon.Model.Models
 {
-    public class Salon
+    public class SalonModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

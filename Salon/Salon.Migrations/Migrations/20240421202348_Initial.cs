@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Salon.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Salon.Migrations.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,18 +30,17 @@ namespace Salon.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserProfile",
+                name: "UserLogin",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProfile", x => x.Id);
+                    table.PrimaryKey("PK_UserLogin", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,8 +51,7 @@ namespace Salon.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SalonId = table.Column<int>(type: "int", nullable: false),
-                    AppoinmentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    SalonId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +70,7 @@ namespace Salon.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserLoginId = table.Column<int>(type: "int", nullable: false),
                     Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -80,29 +80,30 @@ namespace Salon.Migrations
                 {
                     table.PrimaryKey("PK_UserAddress", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAddress_UserProfile_UserProfileId",
-                        column: x => x.UserProfileId,
-                        principalTable: "UserProfile",
+                        name: "FK_UserAddress_UserLogin_UserLoginId",
+                        column: x => x.UserLoginId,
+                        principalTable: "UserLogin",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserPassword",
+                name: "UserProfile",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserProfileId = table.Column<int>(type: "int", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserLoginId = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPassword", x => x.Id);
+                    table.PrimaryKey("PK_UserProfile", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserPassword_UserProfile_UserProfileId",
-                        column: x => x.UserProfileId,
-                        principalTable: "UserProfile",
+                        name: "FK_UserProfile_UserLogin_UserLoginId",
+                        column: x => x.UserLoginId,
+                        principalTable: "UserLogin",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -113,7 +114,7 @@ namespace Salon.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserProfileId = table.Column<int>(type: "int", nullable: false),
+                    UserLoginId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
                     AppoinmentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -127,11 +128,33 @@ namespace Salon.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Appoinment_UserProfile_UserProfileId",
-                        column: x => x.UserProfileId,
-                        principalTable: "UserProfile",
+                        name: "FK_Appoinment_UserLogin_UserLoginId",
+                        column: x => x.UserLoginId,
+                        principalTable: "UserLogin",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Salon",
+                columns: new[] { "Id", "Address", "Description", "ImagePath", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Address 1", "Description 1", "salon1.jpg", "Beauty Salon 1" },
+                    { 2, "Address 2", "Description 2", "salon1.jpg", "Beauty Salon 2" },
+                    { 3, "Address 3", "Description 3", "salon1.jpg", "Beauty Salon 3" },
+                    { 4, "Address 4", "Description 4", "salon1.jpg", "Beauty Salon 4" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Service",
+                columns: new[] { "Id", "Description", "Name", "SalonId" },
+                values: new object[,]
+                {
+                    { 1, "Description nails", "Gel Nails", 1 },
+                    { 2, "Descriptions hair", "Hair Treatment", 1 },
+                    { 3, "Description hair", "Haircut", 1 },
+                    { 4, "Description facials", "Gel Nails", 1 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -140,9 +163,9 @@ namespace Salon.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appoinment_UserProfileId",
+                name: "IX_Appoinment_UserLoginId",
                 table: "Appoinment",
-                column: "UserProfileId");
+                column: "UserLoginId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Service_SalonId",
@@ -150,14 +173,14 @@ namespace Salon.Migrations
                 column: "SalonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAddress_UserProfileId",
+                name: "IX_UserAddress_UserLoginId",
                 table: "UserAddress",
-                column: "UserProfileId");
+                column: "UserLoginId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserPassword_UserProfileId",
-                table: "UserPassword",
-                column: "UserProfileId");
+                name: "IX_UserProfile_UserLoginId",
+                table: "UserProfile",
+                column: "UserLoginId");
         }
 
         /// <inheritdoc />
@@ -170,13 +193,13 @@ namespace Salon.Migrations
                 name: "UserAddress");
 
             migrationBuilder.DropTable(
-                name: "UserPassword");
+                name: "UserProfile");
 
             migrationBuilder.DropTable(
                 name: "Service");
 
             migrationBuilder.DropTable(
-                name: "UserProfile");
+                name: "UserLogin");
 
             migrationBuilder.DropTable(
                 name: "Salon");

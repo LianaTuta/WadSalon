@@ -1,4 +1,4 @@
-﻿namespace Salon.Models
+﻿namespace Salon.Model.Models
 {
     public class SalonService
     {
@@ -6,7 +6,6 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public int SalonId { get; set; }
-        public Salon Salon {  get; set; }
-        public DateTime AppoinmentDate { get; set; }
+        public SalonModel Salon {  get; set; }
     }
 }

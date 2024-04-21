@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Salon.DAL;
-using Salon.Models;
+using Salon.Migrations;
+using Salon.Model.ViewModels;
 
 namespace Salon.Controllers
 {
@@ -20,11 +20,11 @@ namespace Salon.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginAsync(UserLoginModel userLogin)
+        public async Task<IActionResult> LoginAsync(UserLoginView userLogin)
         {
-            var existingUserProfile = await _context.UserProfile
+            var existingUserProfile = await _context.UserLogin
             .FirstOrDefaultAsync(m => m.Email == userLogin.Email);
-            var correctPassword = await _context.UserPassword.FirstOrDefaultAsync(m => m.Password == userLogin.Password);
+            var correctPassword = await _context.UserLogin.FirstOrDefaultAsync(m => m.Password == userLogin.Password);
             if (existingUserProfile != null  && correctPassword !=null)
             {
                 return RedirectToAction("Overview", "Salons");

@@ -1,32 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Salon.DAL;
-using Salon.Models;
-using System.Runtime.Intrinsics.X86;
+using Salon.BL.Services.Interface;
+using Salon.Migrations;
 
 namespace Salon.Controllers
 {
     public class SalonsController : Controller
     {
-        private readonly SalonContext _context;
-        public SalonsController(SalonContext context)
+        private readonly ISalonService _salonService;
+        public SalonsController(ISalonService salonService)
         {
-            _context = context;
+            _salonService = salonService;
         }
 
         [HttpGet]
         public async Task<IActionResult> OverviewAsync()
         {
-            var list = await _context.Salon.ToListAsync();
-            ViewBag.SalonList = list;
-            return View(list.ToList());
+            var salons = await _salonService.GetAllSalons();
+            ViewBag.SalonList = salons;
+            return View(salons);
         }
 
         [HttpGet]
         public async Task<IActionResult> SalonDetailsAsync(int salonId)
         {
-            var salonDetails = await _context.Salon
-               .FirstOrDefaultAsync(m => m.Id == salonId);
+            var salonDetails = await _salonService.GetSalonById(salonId);
             ViewBag.Salon = salonDetails;
             return View(salonDetails);
         }

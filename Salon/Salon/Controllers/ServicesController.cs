@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Salon.DAL;
-using Salon.Models;
+using Salon.BL.Services.Interface;
+using Salon.Migrations;
+using Salon.Model.Models;
 
 namespace Salon.Controllers
 {
     public class ServicesController : Controller
     {
-        private readonly SalonContext _context;
-        public ServicesController(SalonContext context)
+        private readonly ISalonServicesService _salonServicesService;
+        public ServicesController(ISalonServicesService salonServicesService)
         {
-            _context = context;
+            _salonServicesService = salonServicesService;
         }
+        [HttpGet]
         public async Task<IActionResult> ServicesAsync(int salonId)
         {
 
-            var services = await _context.Service.ToListAsync();     
+            var services = await _salonServicesService.GetServicesBySalonId(salonId);   
             ViewBag.Services = services;
             return View(services);
         }

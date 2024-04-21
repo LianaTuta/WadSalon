@@ -5,27 +5,27 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Salon.DAL;
+using Salon.Migrations;
 
 #nullable disable
 
-namespace Salon.Migrations
+namespace Salon.Migrations.Migrations
 {
     [DbContext(typeof(SalonContext))]
-    [Migration("20240402233407_InsertValues")]
-    partial class InsertValues
+    [Migration("20240421202348_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Salon.Models.Appoinment", b =>
+            modelBuilder.Entity("Salon.Model.Models.Appoinment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,19 +39,19 @@ namespace Salon.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserProfileId")
+                    b.Property<int>("UserLoginId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ServiceId");
 
-                    b.HasIndex("UserProfileId");
+                    b.HasIndex("UserLoginId");
 
                     b.ToTable("Appoinment");
                 });
 
-            modelBuilder.Entity("Salon.Models.Salon", b =>
+            modelBuilder.Entity("Salon.Model.Models.SalonModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,18 +78,49 @@ namespace Salon.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Salon");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Address 1",
+                            Description = "Description 1",
+                            ImagePath = "salon1.jpg",
+                            Name = "Beauty Salon 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Address 2",
+                            Description = "Description 2",
+                            ImagePath = "salon1.jpg",
+                            Name = "Beauty Salon 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Address 3",
+                            Description = "Description 3",
+                            ImagePath = "salon1.jpg",
+                            Name = "Beauty Salon 3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Address 4",
+                            Description = "Description 4",
+                            ImagePath = "salon1.jpg",
+                            Name = "Beauty Salon 4"
+                        });
                 });
 
-            modelBuilder.Entity("Salon.Models.SalonService", b =>
+            modelBuilder.Entity("Salon.Model.Models.SalonService", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AppoinmentDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -107,9 +138,39 @@ namespace Salon.Migrations
                     b.HasIndex("SalonId");
 
                     b.ToTable("Service");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Description nails",
+                            Name = "Gel Nails",
+                            SalonId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Descriptions hair",
+                            Name = "Hair Treatment",
+                            SalonId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Description hair",
+                            Name = "Haircut",
+                            SalonId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Description facials",
+                            Name = "Gel Nails",
+                            SalonId = 1
+                        });
                 });
 
-            modelBuilder.Entity("Salon.Models.UserAddress", b =>
+            modelBuilder.Entity("Salon.Model.Models.UserAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,39 +194,17 @@ namespace Salon.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserProfileId")
+                    b.Property<int>("UserLoginId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserProfileId");
+                    b.HasIndex("UserLoginId");
 
                     b.ToTable("UserAddress");
                 });
 
-            modelBuilder.Entity("Salon.Models.UserPassword", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserProfileId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserProfileId");
-
-                    b.ToTable("UserPassword");
-                });
-
-            modelBuilder.Entity("Salon.Models.UserProfile", b =>
+            modelBuilder.Entity("Salon.Model.Models.UserLogin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -177,6 +216,23 @@ namespace Salon.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserLogin");
+                });
+
+            modelBuilder.Entity("Salon.Model.Models.UserProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -185,33 +241,38 @@ namespace Salon.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserLoginId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserLoginId");
 
                     b.ToTable("UserProfile");
                 });
 
-            modelBuilder.Entity("Salon.Models.Appoinment", b =>
+            modelBuilder.Entity("Salon.Model.Models.Appoinment", b =>
                 {
-                    b.HasOne("Salon.Models.SalonService", "Service")
+                    b.HasOne("Salon.Model.Models.SalonService", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Salon.Models.UserProfile", "Profile")
+                    b.HasOne("Salon.Model.Models.UserLogin", "UserLogin")
                         .WithMany()
-                        .HasForeignKey("UserProfileId")
+                        .HasForeignKey("UserLoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Profile");
-
                     b.Navigation("Service");
+
+                    b.Navigation("UserLogin");
                 });
 
-            modelBuilder.Entity("Salon.Models.SalonService", b =>
+            modelBuilder.Entity("Salon.Model.Models.SalonService", b =>
                 {
-                    b.HasOne("Salon.Models.Salon", "Salon")
+                    b.HasOne("Salon.Model.Models.SalonModel", "Salon")
                         .WithMany()
                         .HasForeignKey("SalonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,26 +281,26 @@ namespace Salon.Migrations
                     b.Navigation("Salon");
                 });
 
-            modelBuilder.Entity("Salon.Models.UserAddress", b =>
+            modelBuilder.Entity("Salon.Model.Models.UserAddress", b =>
                 {
-                    b.HasOne("Salon.Models.UserProfile", "UserProfile")
+                    b.HasOne("Salon.Model.Models.UserLogin", "UserLogin")
                         .WithMany()
-                        .HasForeignKey("UserProfileId")
+                        .HasForeignKey("UserLoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserProfile");
+                    b.Navigation("UserLogin");
                 });
 
-            modelBuilder.Entity("Salon.Models.UserPassword", b =>
+            modelBuilder.Entity("Salon.Model.Models.UserProfile", b =>
                 {
-                    b.HasOne("Salon.Models.UserProfile", "UserProfile")
+                    b.HasOne("Salon.Model.Models.UserLogin", "UserLogin")
                         .WithMany()
-                        .HasForeignKey("UserProfileId")
+                        .HasForeignKey("UserLoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserProfile");
+                    b.Navigation("UserLogin");
                 });
 #pragma warning restore 612, 618
         }

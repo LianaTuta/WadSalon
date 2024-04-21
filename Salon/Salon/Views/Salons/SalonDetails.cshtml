@@ -1,5 +1,5 @@
 ﻿@page
-@model Salon
+@model SalonModel
 
 @{
     Layout = "_Layout";
@@ -37,9 +37,12 @@
 <body>
 
     <div class="column-container1">
+        @using (Html.BeginForm("Services", "Services",  new {salonId = 1 }, FormMethod.Get))
+    {
         <h1>@ViewBag.Salon.Name</h1>
         <div class="row-container1">
             <div>
+                <div>@ViewBag.Salon.Id</div>
                 <div>About</div>
                 <div>Model.Description</div>
                 <div>Address</div>
@@ -58,8 +61,11 @@
 
 
         <div>
-            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("Services", "Services")'" />
+     
+            <input type="submit" value="Book appoinment" />
         </div>
+        }
     </div>
+   
 
 </body>

@@ -1,5 +1,5 @@
 ﻿@page
-@model IList<SalonService>
+@model IList<SalonServiceView>
 @{
     ViewBag.Title = "Serivces";
     Layout = "_Layout";
@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (SalonService service in ViewBag.Services)
+            @foreach (SalonServiceView service in ViewBag.Services)
             {
                 <tr>
                     <td>@service.Name</td>
@@ -43,7 +43,7 @@
                             @Html.AntiForgeryToken()
                             // this is for prevent CSRF attack
                             @Html.ValidationSummary(true)
-                            @Html.EditorFor(service => service.FirstOrDefault().AppoinmentDate, new { htmlAttributes = new { @class = "datepicker"}} )
+                            @Html.EditorFor(service => service.FirstOrDefault().AppointmentDate, new { htmlAttributes = new { @class = "datepicker"}} )
                         }
                     </td>
                     <td>

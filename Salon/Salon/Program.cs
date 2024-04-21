@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using Salon.BL;
 using Salon.DAL;
+using Salon.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddServices();
+builder.Services.AddRepositories();
 builder.Services.AddDbContext<SalonContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SalonDb")));
 var app = builder.Build();
 

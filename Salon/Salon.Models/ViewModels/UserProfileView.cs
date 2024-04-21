@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Salon.Models
+namespace Salon.Model.ViewModels
 {
     public class UserProfileView
     {
