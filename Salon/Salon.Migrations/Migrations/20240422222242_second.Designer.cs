@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Salon.Migrations;
 
@@ -11,9 +12,11 @@ using Salon.Migrations;
 namespace Salon.Migrations.Migrations
 {
     [DbContext(typeof(SalonContext))]
-    partial class SalonContextModelSnapshot : ModelSnapshot
+    [Migration("20240422222242_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,9 +92,9 @@ namespace Salon.Migrations.Migrations
                         {
                             Id = 2,
                             Address = "Address 2",
-                            Description = "Welcome to Enchanted Elegance Beauty Lounge, where every visit is a magical experience. Step into our luxurious sanctuary and immerse yourself in a world of enchantment, where beauty meets elegance.\r\n\r\nOur talented team of professionals is dedicated to providing you with top-notch service, tailored to your unique needs and desires. Whether you're seeking a glamorous makeover, a relaxing spa treatment, or expertly styled hair, we have everything you need to enhance your natural beauty and leave you feeling radiant.\r\n\r\nAt Enchanted Elegance, we believe in using only the finest quality products, carefully selected to deliver exceptional results. From luxurious skincare to premium hair care, every detail is designed to pamper you from head to toe and make you feel like royalty.",
+                            Description = "Description 2",
                             ImagePath = "salon1.jpg",
-                            Name = "Enchanted Beauty Lounge"
+                            Name = "Beauty Salon 2"
                         },
                         new
                         {
@@ -99,7 +102,7 @@ namespace Salon.Migrations.Migrations
                             Address = "Address 3",
                             Description = "Description 3",
                             ImagePath = "salon1.jpg",
-                            Name = "Beauty Salon with Name 3"
+                            Name = "Beauty Salon 3"
                         },
                         new
                         {
@@ -107,7 +110,7 @@ namespace Salon.Migrations.Migrations
                             Address = "Address 4",
                             Description = "Description 4",
                             ImagePath = "salon1.jpg",
-                            Name = "Beauty Salon with Name 4"
+                            Name = "Beauty Salon 4"
                         });
                 });
 
@@ -142,28 +145,28 @@ namespace Salon.Migrations.Migrations
                             Id = 1,
                             Description = "Description nails",
                             Name = "Gel Nails",
-                            SalonId = 3
+                            SalonId = 2
                         },
                         new
                         {
                             Id = 2,
                             Description = "Descriptions hair",
                             Name = "Hair Treatment",
-                            SalonId = 4
+                            SalonId = 2
                         },
                         new
                         {
                             Id = 3,
                             Description = "Description hair",
                             Name = "Haircut",
-                            SalonId = 4
+                            SalonId = 2
                         },
                         new
                         {
                             Id = 4,
-                            Description = "Description gel nails",
+                            Description = "Description facials",
                             Name = "Gel Nails",
-                            SalonId = 4
+                            SalonId = 2
                         },
                         new
                         {
@@ -178,27 +181,6 @@ namespace Salon.Migrations.Migrations
                             Description = "Revive your skin's natural glow with our customized facial, leaving you with a luminous complexion",
                             Name = "Radiance Renewal Facial",
                             SalonId = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Pamper your hands and feet with our Fairy Tale Manicure/Pedicure, complete with luxurious treatments and enchanting nail art.",
-                            Name = "Fairy Tale Manicure/Pedicure",
-                            SalonId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Enhance your features with our Natural Makeup Application, perfect for a subtle yet polished look.",
-                            Name = "Natural Makeup Application",
-                            SalonId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Nourish your hair with our Nourishing Hair Treatment, restoring health and shine to your locks.",
-                            Name = "Nourishing Hair Treatment",
-                            SalonId = 2
                         });
                 });
 

@@ -38,5 +38,11 @@ namespace Salon.DAL.Repository.Implementation
             var userProfile = await _context.UserLogin.FirstOrDefaultAsync(m => m.Email == email);
             return userProfile.Id;
         }
+
+        public async Task<int> FindFirstOrDefaultUserProfile()
+        {
+            var userProfile = await _context.UserLogin.FirstOrDefaultAsync();
+            return userProfile.Id;
+        }
     }
 }

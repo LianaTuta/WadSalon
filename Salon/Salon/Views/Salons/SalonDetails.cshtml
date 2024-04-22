@@ -37,34 +37,22 @@
 <body>
 
     <div class="column-container1">
-        @using (Html.BeginForm("Services", "Services",  new {salonId = 1 }, FormMethod.Get))
-    {
         <h1>@ViewBag.Salon.Name</h1>
         <div class="row-container1">
             <div>
-                <div>@ViewBag.Salon.Id</div>
                 <div>About</div>
-                <div>Model.Description</div>
-                <div>Address</div>
+                <div>@ViewBag.Salon.Description</div>
+                <div>Our Address</div>
                 <div>@ViewBag.Salon.Address</div>
-                <div>
-                    Finished her are its honoured drawings nor. Pretty see mutual thrown all not edward ten. Particular an boisterous up he reasonably frequently. Several any had enjoyed shewing studied two. Up intention remainder sportsmen behaviour ye happiness. Few again any alone style added abode ask. Nay projecting unpleasing boisterous eat discovered solicitude. Own six moments produce elderly pasture far arrival. Hold our year they ten upon. Gentleman contained so intention sweetness in on resolving.
-
-                    Unpleasant astonished an diminution up partiality. Noisy an their of meant. Death means up civil do an offer wound of. Called square an in afraid direct. Resolution diminution conviction so mr at unpleasing simplicity no. No it as breakfast up conveying earnestly immediate principle. Him son disposed produced humoured overcame she bachelor improved. Studied however out wishing but inhabit fortune windows.
-
-                    Was certainty remaining engrossed applauded sir how discovery. Settled opinion how enjoyed greater joy adapted too shy. Now properly surprise expenses interest nor replying she she. Bore tall nay many many time yet less. Doubtful for answered one fat indulged margaret sir shutters together. Ladies so in wholly around whence in at. Warmth he up giving oppose if. Impossible is dissimilar entreaties oh on terminated. Earnest studied article country ten respect showing had. But required offering him elegance son improved informed.
-                </div>
             </div>
             <img class="img-details" src="~/Images/@ViewBag.Salon.ImagePath" alt="No Image" />
 
         </div>
 
-
         <div>
-     
-            <input type="submit" value="Book appoinment" />
+            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("Services", "Services", new {salonId = ViewBag.Salon.Id})'" />
         </div>
-        }
+        
     </div>
    
 

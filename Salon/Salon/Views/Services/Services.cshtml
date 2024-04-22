@@ -1,5 +1,6 @@
 ﻿@page
-@model IList<SalonServiceView>
+@using Salon.Model.ViewModels
+@model SalonServiceView
 @{
     ViewBag.Title = "Serivces";
     Layout = "_Layout";
@@ -20,6 +21,9 @@
     <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
 
 </head>
+@{
+    var data = ViewBag.SalonServices;
+}
 <div class="column-container">
     <table class="table" cellpadding="0" cellspacing="0">
         <thead>
@@ -31,7 +35,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (SalonServiceView service in ViewBag.Services)
+            @foreach (var service in @data)
             {
                 <tr>
                     <td>@service.Name</td>
@@ -43,12 +47,12 @@
                             @Html.AntiForgeryToken()
                             // this is for prevent CSRF attack
                             @Html.ValidationSummary(true)
-                            @Html.EditorFor(service => service.FirstOrDefault().AppointmentDate, new { htmlAttributes = new { @class = "datepicker"}} )
+                            @Html.EditorFor(service => service.AppointmentDate, new { htmlAttributes = new { @class = "datepicker"}} )
                         }
                     </td>
                     <td>
                         <div>
-                                <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("SuccessfullBook", "Services",new {serviceModel=service})'" />
+                            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("SuccessfulBook", "Services", new {id = service.Id, salonId = service.SalonId, appointmentDate = service.AppointmentDate})'" />                       
                         </div>
                     </td>
                 </tr>

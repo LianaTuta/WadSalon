@@ -15,5 +15,7 @@ namespace Salon.DAL.Repository.Interface
         Task SaveUserLoginDetails(UserLogin userLoginDetails);
 
         Task<int> FindUserProfile(string email);
+
+        Task<int> FindFirstOrDefaultUserProfile();
     }
 }

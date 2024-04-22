@@ -11,6 +11,7 @@ namespace Salon.DAL
             services.AddScoped<ISalonRepository, SalonRepository>();
             services.AddScoped<ISalonServiceRepository, SalonServiceRepository>();
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
+            services.AddScoped<IAppointmentRepository, AppoinmentRepository>();
             return services;
         }
     }

@@ -18,6 +18,7 @@ namespace Salon.BL
             services.AddTransient<ISalonService, SalonsService>();
             services.AddTransient<ISalonServicesService, SalonServicesService>();
             services.AddTransient<IUserAccountService, UserAcconuntService>();
+            services.AddTransient<IAppointmentService, AppointmentService>();
             return services;
         }
     }
