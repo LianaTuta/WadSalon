@@ -1,9 +1,10 @@
-﻿@page
-@model SalonModel
-
+﻿@model SalonModel
 @{
+    ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
+<!DOCTYPE html>
+<html>
 <head>
     <style>
         .column-container1 {
@@ -37,23 +38,24 @@
 <body>
 
     <div class="column-container1">
-        <h1>@ViewBag.Salon.Name</h1>
+        <h1>@Model.Name</h1>
         <div class="row-container1">
             <div>
                 <div>About</div>
-                <div>@ViewBag.Salon.Description</div>
+                <div>@Model.Description</div>
                 <div>Our Address</div>
-                <div>@ViewBag.Salon.Address</div>
+                <div>@Model.Address</div>
             </div>
-            <img class="img-details" src="~/Images/@ViewBag.Salon.ImagePath" alt="No Image" />
+            <img class="img-details" src="~/Images/@Model.ImagePath" alt="No Image" />
 
         </div>
 
         <div>
-            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("Services", "Services", new {salonId = ViewBag.Salon.Id})'" />
+            <input type="button" value="Book appoinment" onclick="location.href='@Url.Action("Services", "Services", new {salonId = Model.Id})'" />
         </div>
-        
+
     </div>
-   
+
 
 </body>
+</html>

@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Salon.BL.Services.Interface;
-using Salon.Migrations;
-using Salon.Model.Models;
-using Salon.Model.ViewModels;
+using System.Security.Claims;
 
 namespace Salon.Controllers
 {
@@ -16,25 +14,58 @@ namespace Salon.Controllers
             _salonServicesService = salonServicesService;
             _appointmentService = appointmentService;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> ServicesAsync(int salonId)
         {
 
             var services = await _salonServicesService.GetServicesBySalonId(salonId);
-            SalonServiceViewList salonServiceList = new SalonServiceViewList()
-            {
-                List = services
-            };
-            ViewBag.SalonServices = services;
             
-            return View(salonServiceList.List.FirstOrDefault());
+            return View(services);
         }
 
+        [Authorize]
         public async Task<IActionResult> SuccessfulBook(int id, int salonId, DateTime appointmentDate)
         {
-            await _appointmentService.SaveAppoinment(id,salonId, appointmentDate);
-            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _appointmentService.SaveAppoinment(userId, id,salonId, appointmentDate);
             return View();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> UserAppointments()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var appointments = await _appointmentService.GetUserAppoinmentsAsync(userId);
+            return View(appointments);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> EditAppointment(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var appointments = await _appointmentService.GetUserAppoinmentsAsync(userId);
+           
+            return View(appointments.Where(a => a.Id == id).FirstOrDefault());
+        }
+
+        [Authorize]
+       
+        public async Task<IActionResult> SavedUpdatedAppointment(int id, DateTime date)
+        {
+             await _appointmentService.UpdateAppointment(id, date);
+            return RedirectToAction("UserAppointments", "Services");
+        }
+
+
+        [Authorize]
+
+        public async Task<IActionResult> DeleteAppointment(int id)
+        {
+            await _appointmentService.DeleteAppointment(id);
+            return RedirectToAction("UserAppointments", "Services");
         }
     }
 }

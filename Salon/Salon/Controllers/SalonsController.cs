@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Salon.BL.Services.Interface;
 using Salon.Migrations;
@@ -13,19 +14,20 @@ namespace Salon.Controllers
             _salonService = salonService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> OverviewAsync()
         {
             var salons = await _salonService.GetAllSalons();
-            ViewBag.SalonList = salons;
+            
             return View(salons);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> SalonDetailsAsync(int salonId)
         {
             var salonDetails = await _salonService.GetSalonById(salonId);
-            ViewBag.Salon = salonDetails;
             return View(salonDetails);
         }
     }

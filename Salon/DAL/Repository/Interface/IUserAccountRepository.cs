@@ -12,7 +12,7 @@ namespace Salon.DAL.Repository.Interface
     {
         Task<int> SaveUserProfile(UserProfile userProfile);
 
-        Task SaveUserLoginDetails(UserLogin userLoginDetails);
+        Task SaveUserAddress(UserAddress userAddress);
 
         Task<int> FindUserProfile(string email);
 

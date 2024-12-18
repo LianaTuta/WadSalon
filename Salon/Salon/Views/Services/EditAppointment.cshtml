@@ -1,0 +1,72 @@
+﻿@model AppoinmentViewModel
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .column-container1 {
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            margin: 50px;
+            padding: 50px 50px 50px 50px;
+        }
+
+        .row-container1 {
+            display: flex;
+            flex-direction: row;
+            width: fit-content;
+            padding: 10px 10px 10px 10px;
+            gap: 100px;
+            align-self: center;
+        }
+
+
+        .row-container2 {
+            display: flex;
+            flex-direction: row;
+            padding: 10px 10px 10px 10px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+</head>
+<body>
+
+    <div class="column-container1">
+        <div class="row-container1">
+            <div>
+                <h1>Service</h1>
+                <div>@Model.Service.Name</div>
+
+                @using (Html.BeginForm("SavedUpdatedAppointment", "Services", FormMethod.Post))
+                {
+                    @Html.HiddenFor(a => a.Id)
+                    @Html.TextBoxFor(a => a.EditAppoinmentDate, new { placeholder = "app", @class = "input-container", type = "date", required = "required" })
+
+                    <div>
+                        <input type="submit" value="Edit appointment" />
+                    </div>
+                }
+
+                <div>
+                    <input type="button" value="Delete appointment" onclick="location.href='@Url.Action("DeleteAppointment", "Services", new {id = Model.Id})'" />
+                </div>
+            </div>
+         
+
+        </div>
+
+
+
+    </div>
+
+
+</body>
+</html>

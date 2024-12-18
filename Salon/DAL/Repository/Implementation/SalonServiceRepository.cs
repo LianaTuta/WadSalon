@@ -23,6 +23,12 @@ namespace Salon.DAL.Repository.Implementation
             return salonDetails;
         }
 
+        public async Task<SalonService> GetServicesById(int id)
+        {
+            var salonDetails = await _context.Service.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return salonDetails;
+        }
+
 
     }
 }

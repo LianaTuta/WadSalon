@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Salon.Model.Models;
 
 namespace Salon.Migrations
 {
-    public class SalonContext : DbContext
+    public class SalonContext : IdentityDbContext<IdentityUser>
+
     {
         public SalonContext(DbContextOptions<SalonContext> options)
             : base(options)
@@ -19,6 +22,7 @@ namespace Salon.Migrations
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+          
             modelBuilder.Entity<SalonModel>().HasData(
                 new SalonModel { Id = 1, Name = "Serene Haven Salon & Spa", ImagePath = "salon1.jpg", Description = "Welcome to Serene Haven Salon & Spa, where tranquility meets transformation. Nestled in the heart of Craiova, our haven offers a serene escape from the hustle and bustle of everyday life. Step into our luxurious sanctuary and embark on a journey of self-care and rejuvenation.\r\n\r\nOur team of skilled professionals is dedicated to providing unparalleled service tailored to your unique needs. Whether you're craving a glamorous makeover, a relaxing massage, or a rejuvenating facial, we have a wide range of services to pamper you from head to toe.", Address = "Address 1" },
                 new SalonModel { Id = 2, Name = "Enchanted Beauty Lounge", ImagePath = "salon1.jpg", Description = "Welcome to Enchanted Elegance Beauty Lounge, where every visit is a magical experience. Step into our luxurious sanctuary and immerse yourself in a world of enchantment, where beauty meets elegance.\r\n\r\nOur talented team of professionals is dedicated to providing you with top-notch service, tailored to your unique needs and desires. Whether you're seeking a glamorous makeover, a relaxing spa treatment, or expertly styled hair, we have everything you need to enhance your natural beauty and leave you feeling radiant.\r\n\r\nAt Enchanted Elegance, we believe in using only the finest quality products, carefully selected to deliver exceptional results. From luxurious skincare to premium hair care, every detail is designed to pamper you from head to toe and make you feel like royalty.", Address = "Address 2" },
@@ -37,6 +41,8 @@ namespace Salon.Migrations
                   new SalonService { Id = 8, Name = "Natural Makeup Application", SalonId = 2, Description = "Enhance your features with our Natural Makeup Application, perfect for a subtle yet polished look." },
                   new SalonService { Id = 9, Name = "Nourishing Hair Treatment", SalonId = 2, Description = "Nourish your hair with our Nourishing Hair Treatment, restoring health and shine to your locks." }
                   );
+
+            base.OnModelCreating(modelBuilder);
         }
 
     }

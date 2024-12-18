@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Salon.Migrations;
 using Salon.Model.ViewModels;
@@ -7,10 +8,14 @@ namespace Salon.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly SalonContext _context;
-        public LoginController(SalonContext context)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly ILogger<LoginController> _logger;
+        public LoginController( 
+            SignInManager<IdentityUser> signInManager,
+             ILogger<LoginController> logger)
         {
-            _context = context;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
         public IActionResult Login()
@@ -22,14 +27,18 @@ namespace Salon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LoginAsync(UserLoginView userLogin)
         {
-            var existingUserProfile = await _context.UserLogin
-            .FirstOrDefaultAsync(m => m.Email == userLogin.Email);
-            var correctPassword = await _context.UserLogin.FirstOrDefaultAsync(m => m.Password == userLogin.Password);
-            if (existingUserProfile != null  && correctPassword !=null)
+            var result = await _signInManager.PasswordSignInAsync(userLogin.Email, userLogin.Password, true, lockoutOnFailure: false);
+            if (result.Succeeded)
             {
+                _logger.LogInformation("User logged in.");
                 return RedirectToAction("Overview", "Salons");
             }
-            return  RedirectToAction("Login", "Login");
+
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return RedirectToAction("Login", "UserAccount");
+            }
         }
        
     }

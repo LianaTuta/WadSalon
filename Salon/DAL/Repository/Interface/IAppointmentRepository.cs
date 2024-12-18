@@ -10,5 +10,12 @@ namespace Salon.DAL.Repository.Interface
     public interface IAppointmentRepository
     {
         Task SaveAppointment(Appoinment appoinment);
+        Task<List<Appoinment>> GetAppointments(string userId);
+
+        Task UpdateAppointment(Appoinment appoinment);
+        Task DeleteAppointment(Appoinment appoinment);
+
+        Task<Appoinment?> GetAppointmentById(int id);
+
     }
 }

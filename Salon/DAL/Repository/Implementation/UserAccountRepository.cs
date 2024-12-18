@@ -26,12 +26,7 @@ namespace Salon.DAL.Repository.Implementation
             return userProfile.Id;
         }
 
-        public async Task SaveUserLoginDetails(UserLogin userLoginDetails)
-        {
-            await _context.UserLogin.AddAsync(userLoginDetails);
-            await _context.SaveChangesAsync();
-
-        }
+       
 
         public async Task<int> FindUserProfile(string email)
         {
@@ -43,6 +38,12 @@ namespace Salon.DAL.Repository.Implementation
         {
             var userProfile = await _context.UserLogin.FirstOrDefaultAsync();
             return userProfile.Id;
+        }
+
+        public async Task SaveUserAddress(UserAddress userAddress)
+        {
+            await _context.UserAddress.AddAsync(userAddress);
+            await _context.SaveChangesAsync();
         }
     }
 }
